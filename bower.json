@@ -1,0 +1,13 @@
+{
+  "name": "IBMExercise",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.6.4",
+    "angular-animate": "~1.6.4",
+    "angular-material": "~1.1.4",
+    "angular-resource": "~1.6.4",
+    "angular-ui-router": "~1.0.3",
+    "angular-material-data-table": "~0.10.10",
+    "lodash": "~4.17.4"
+  }
+}

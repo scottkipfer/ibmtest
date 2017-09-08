@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="IBM_Exercise">
+<head>
+    <title>IBM Exercise</title>
+    <base href="/"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+    <link href="lib/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body ng-cloak ng-controller="AppController as vm">
+<md-content layout-padding>
+    <div layout="column">
+        <div>
+            <h1>Contacts</h1>
+        </div>
+
+        <div layout="row">
+            <div flex="30" layout="column" layout-padding style="border-right:solid 1px #ccc">
+                <div>
+                    <h4>Add Contact</h4>
+                </div>
+                <form name="contactForm" ng-submit="vm.addContact(contactForm)">
+                    <div layout="column">
+                        <md-input-container>
+                            <label>First Name</label>
+                            <input name="fname" required ng-model="vm.contact.first_name" >
+                            <div ng-messages="form.address.$error">
+                                <div ng-message="required">required</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Last Name</label>
+                            <input name="lname" required ng-model="vm.contact.last_name" >
+                            <div ng-messages="form.address.$error">
+                                <div ng-message="required">required</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Address</label>
+                            <input name="address" ng-model="vm.contact.address" >
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Company</label>
+                            <input name="company" required ng-model="vm.contact.company" >
+                            <div ng-messages="form.address.$error">
+                                <div ng-message="required">required</div>
+                            </div>
+                        </md-input-container>
+                        <div>
+                            <md-button class="md-raised md-primary" type="submit">Save</md-button>
+                        </div>
+                    </div>
+                    </form>
+            </div>
+            <div flex="70" layout="column" layout-padding>
+                <div>
+                    <h4>Contact List</h4>
+                </div>
+                <div layout="column" >
+                    <md-table-container ng-cloak >
+                        <table md-table md-progress="vm.promise">
+                            <thead md-head md-order="vm.query.order" md-on-reorder="vm.onReorder">
+                            <tr md-row>
+                                <th md-column md-order-by="first_name"><span>First Name</span></th>
+                                <th md-column md-order-by="last_name"><span>Last Name</span></th>
+                                <th md-column ><span>Address</span></th>
+                                <th md-column md-order-by="company"><span>Company</span></th>
+                                <th md-column md-order-by="created"><span>Created</span></th>
+                                <th md-column></th>
+
+                            </thead>
+                            <tbody md-body >
+                            <tr md-row ng-repeat="contact in vm.filtered_contacts = (vm.contactList) | orderBy: natural(vm.query.order):vm.reverse |startFrom:(vm.query.page-1) * vm.query.limit |limitTo: vm.query.limit">
+                                <td md-cell> {{contact.first_name}}</td>
+                                <td md-cell> {{contact.last_name}}</td>
+                                <td md-cell> {{contact.address}}</td>
+                                <td md-cell> {{contact.company}}</td>
+                                <td md-cell> {{contact.created | date: 'short'}}</td>
+                                <td md-cell><a href><md-icon ng-click="vm.removeContact(contact)">delete</md-icon></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <div ng-hide  ng-show="!vm.filtered_contacts.length" style="padding-bottom:20px;margin-left:40px;margin-top:10px;">
+                        There are currently no contacts to display.
+                    </div>
+                    <md-table-pagination ng-show="vm.filtered_contacts.length" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.filtered_contacts.length}}" md-boundary-links  md-page-select></md-table-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</md-content>
+
+<ui-view></ui-view>
+
+</body>
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-animate/angular-animate.min.js"></script>
+<script src="lib/angular-aria/angular-aria.min.js"></script>
+<script src="lib/angular-material/angular-material.min.js"></script>
+<script src="lib/angular-resource/angular-resource.min.js"></script>
+<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="lib/angular-material-data-table/dist/md-data-table.min.js"></script>
+<script src="lib/lodash/dist/lodash.min.js"></script>
+<script src="dist/ibm_exercise.js"></script>
+
+</html>

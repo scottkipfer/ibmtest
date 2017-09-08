@@ -14,7 +14,7 @@ Mongoose - Document Modeling for MongoDB
 
 AngularJS - Client Side Implmentation
 
-Angular Material / Material Data Table - Styling Frame work
+Angular Material / Material Data Table - Styling Framework
 
 Bower/NPM - Package Managers
 
